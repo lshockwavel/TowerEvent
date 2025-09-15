@@ -40,7 +40,6 @@ async function getEventTickets() {
 
 </script>
 
-
 <template>
     <div v-if="comment" class="mb-3">
         <div class="card comment-card d-flex flex-column">
