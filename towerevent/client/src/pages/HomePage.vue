@@ -46,10 +46,9 @@ async function getAllEvents() {
 <template>
   <!-- <Example /> -->
   <div class="container-fluid">
-    <!-- TODO Will use this to create form -->
     <ModalWrapper id="event-form">
       <EventForm />
-     </ModalWrapper>
+    </ModalWrapper>
     <section class="row bg-Home-Page text-light p-3 position-relative">
       <div class="home-text col-md-5 position-absolute">
         <h1 class="fs-bold">Event management for people, by people</h1>
@@ -83,7 +82,8 @@ async function getAllEvents() {
         </div>
       </div>
       <div class="col-md-6">
-        <div data-bs-toggle="modal" data-bs-target="#event-form" class="card create-event-card" :class="{ disabled: !account }">
+        <div data-bs-toggle="modal" data-bs-target="#event-form" class="card create-event-card"
+          :class="{ disabled: !account }">
           <div class="d-flex">
             <div class="p-4">
               <i class="mdi mdi-plus fs-1 text-success"></i>
@@ -102,8 +102,17 @@ async function getAllEvents() {
       <div class="col-12 text-center my-5">
         <h1 class="text-start">Explore top categories</h1>
       </div>
+      <!-- <div v-for="filter in filterButtons" :key="filter.text" class="col-6 col-md-2 p-2">
+        <div @click="filterBy = filter.text" class="btn w-100 p-4 btn-bg" :class="{ active: filterBy === filter.text }">
+          <div class="text-capitalize">
+            <i :class="filter.icon"></i> {{ filter.text }}
+          </div>
+        </div>
+      </div> -->
+    </section>
+    <section class="row d-flex justify-content-evenly">
       <div v-for="filter in filterButtons" :key="filter.text" class="col-6 col-md-2 p-2">
-        <div @click="filterBy = filter.text" class="btn w-100 p-4 btn-bg">
+        <div @click="filterBy = filter.text" class="btn w-100 p-4 btn-bg" :class="{ active: filterBy === filter.text }">
           <div class="text-capitalize">
             <i :class="filter.icon"></i> {{ filter.text }}
           </div>
@@ -160,6 +169,19 @@ async function getAllEvents() {
   transform: none; // disables hover effect
 }
 
+
+.btn-bg {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.btn-bg.active {
+  background-color: #0d6efd; // Bootstrap primary
+  color: #fff;
+  border-color: #0d6efd;
+}
 
 
 </style>

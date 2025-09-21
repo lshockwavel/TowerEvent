@@ -3,6 +3,7 @@ import { AppState } from '@/AppState.js';
 import { Comment } from '@/models/Comment.js';
 import { commentsService } from '@/services/CommentsService.js';
 import { ticketService } from '@/services/TicketsService.js';
+import { Pop } from '@/utils/Pop.js';
 import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -22,11 +23,23 @@ onMounted(() => {
 
 async function deleteComment() {
     // Implement comment deletion logic here
-    // TODO confirm delete
-    // TODO don't forget your try/catch
+    // TODO confirm delete - Done
+    // TODO don't forget your try/catch - Done
+    const confirmed = await Pop.confirm('Are you sure you want to delete this comment?');
+    if (confirmed) {
+        try {
+            const commentId = props.comment.id;
+            await commentsService.deleteComment(commentId);
+            Pop.toast('Comment deleted successfully', 'success');
+            // Optionally, you might want to remove the comment from the UI or refresh the comments list
+        } catch (error) {
+            console.error('Failed to delete comment:', error);
+            Pop.toast('Failed to delete comment', 'error');
+        }
+    }
 
-    await commentsService.deleteComment(props.comment.id);
-    console.log(`Delete comment with ID: ${props.comment.id}`);
+    // await commentsService.deleteComment(props.comment.id);
+    // console.log(`Delete comment with ID: ${props.comment.id}`);
 }
 
 async function getEventTickets() {
@@ -36,7 +49,8 @@ async function getEventTickets() {
         console.log('Event tickets fetched:', AppState.eventTicketProfiles);
     } catch (error) {
         console.error('Failed to fetch event tickets:', error);
-        // TODO Pop a notification
+        Pop.toast('Failed to fetch event tickets', 'error');
+        // TODO Pop a notification -Done
     }
 }
 
@@ -53,10 +67,12 @@ async function getEventTickets() {
                     <span class="badge bg-success">Attending</span>
                 </div>
             <div class="card-body">
-                <!-- TODO add creator img -->
-                <h5 class="card-title">{{ comment.creator.name }}</h5>
+                <div class="d-flex align-items-center mb-2">
+                    <img class="rounded-circle me-2" :src="comment.creator.picture" alt="Creator's profile picture" width="40" height="40" />
+                    <h5 class="card-title">{{ comment.creator.name }}</h5>
+                </div>
                 <p class="card-text">{{ comment.body }}</p>
-                <small class="text-muted">Posted on: {{ comment.createdAt }}</small>
+                <small class="text-muted">Posted on: {{ comment.createdAt.toLocaleString() }}</small>
             </div>
             <div v-if="account?.id == comment.creatorId" class="card-footer">
                 <button @click="deleteComment" class="btn btn-danger">Delete Comment</button>

@@ -34,4 +34,16 @@ export class Event {
                 return 'secondary';
         }
     }
+
+    get formattedStartDate() {
+        return this.startDate.toLocaleString('en-US', {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+            timeZoneName: 'short'
+        });
+    }
 }

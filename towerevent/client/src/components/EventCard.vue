@@ -16,7 +16,7 @@ const props = defineProps({ event: Event })
                 <div class="img-container position-relative">
                     <img :src="event.coverImg" class="card-img-top" alt="Event Cover Image">
                     <i class="event-type-icon mdi" :class="{
-                        'mdi-party-popper': event.type === 'concert',
+                        'mdi-music-note': event.type === 'concert',
                         'mdi-account-group': event.type === 'convention',
                         'mdi-soccer': event.type === 'sport',
                         'mdi-television': event.type === 'digital'
@@ -28,7 +28,7 @@ const props = defineProps({ event: Event })
             </div>
             <div class="card-body">
                 <h5 class="card-title">{{ event.name }}</h5>
-                <p class="card-text">{{ event.id }}</p>
+                <!-- <p class="card-text">{{ event.id }}</p> -->
                 <p>{{ event.startDate.toLocaleDateString() }} - {{ event.location }}</p>
                 <p class="card-text"><small class="text-muted">Hosted by {{ event.creator.name }}</small></p>
                 <p class="card-text"><small class="text-muted">{{ event.ticketCount }} attending</small></p>
