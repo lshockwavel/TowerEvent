@@ -45,6 +45,7 @@ class EventsService {
             throw new Error('Unable to cancel event', response.data);
         }
         logger.log('canceled event', response.data);
+        // TODO flip bool
         AppState.activeEvent.isCanceled = true;
 
         // AppState.activeEvent = null;

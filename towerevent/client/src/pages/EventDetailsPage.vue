@@ -194,6 +194,7 @@ function resetForm() {
                         <h3 class="card-title">Tickets</h3>
                         <p class="card-text">Total Tickets Sold: {{ event?.ticketCount || 0 }}</p>
                         <p class="card-text">Tickets left: {{ event?.capacity - event?.ticketCount || 0 }}</p>
+                        <!-- TODO also don't show if the event is cancelled -->
                         <button v-if="event?.capacity - event?.ticketCount > 0" class="btn btn-primary"
                             @click="createTicket">Get Ticket</button>
                         <button v-else class="btn btn-secondary" disabled>Sold Out</button>

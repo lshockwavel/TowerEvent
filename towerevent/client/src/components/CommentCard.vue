@@ -22,6 +22,8 @@ onMounted(() => {
 
 async function deleteComment() {
     // Implement comment deletion logic here
+    // TODO confirm delete
+    // TODO don't forget your try/catch
 
     await commentsService.deleteComment(props.comment.id);
     console.log(`Delete comment with ID: ${props.comment.id}`);
@@ -34,6 +36,7 @@ async function getEventTickets() {
         console.log('Event tickets fetched:', AppState.eventTicketProfiles);
     } catch (error) {
         console.error('Failed to fetch event tickets:', error);
+        // TODO Pop a notification
     }
 }
 
@@ -50,6 +53,7 @@ async function getEventTickets() {
                     <span class="badge bg-success">Attending</span>
                 </div>
             <div class="card-body">
+                <!-- TODO add creator img -->
                 <h5 class="card-title">{{ comment.creator.name }}</h5>
                 <p class="card-text">{{ comment.body }}</p>
                 <small class="text-muted">Posted on: {{ comment.createdAt }}</small>
